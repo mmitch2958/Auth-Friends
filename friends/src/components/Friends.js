@@ -1,33 +1,44 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { getFriends } from '../actions'
-import Friend from './Friend'
+import React, { useState, useEffect } from "react";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
+import Friend from './Friend';
 
-class Friends extends React.Component {
-    
-  componentDidMount() {
-    this.props.getFriends()
+export default function FriendsList () {
+
+  const [friends, setFriends] = useState([])
+
+  const getFriends = () => {
+    axiosWithAuth()
+      .get("/api/friends")
+      .then(res => {
+        console.log("getFriends res.data:", res.data)
+        setFriends(res.data)
+      })
+      .catch(err => {
+        console.log("getFriends err:", err)
+      })
   }
 
-  render() {
-    return(
-      <div>
-        {this.props.friends.map(friend => 
-        <Friend friend={friend} 
-        key={friend.id} 
-        id={friend.id}  />
-        )}
-      </div>
-        )      
-    }
-}
+  useEffect(() => {
+    getFriends()
+  }, [])
 
-function mstp(state) {
-  return{
-    fetchingFriends: state.fetchingFriends,
-    friends: state.friends,
-    error: state.error
-  }
-}
 
-export default connect(mstp, { getFriends })(Friends)
+
+  return (
+    <div>FriendsList component says hi
+      <Friend setFriends={setFriends} />
+      {friends.map(friend => {
+        return (
+          <div>
+            <h2>{friend.name}</h2>
+            {/* this would be a cool spot to hover/flip */}
+            {friend.age} <br />
+            {friend.email}
+
+          </div>
+        )
+      })}
+
+    </div>
+  )
+}

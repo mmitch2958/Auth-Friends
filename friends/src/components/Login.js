@@ -8,7 +8,6 @@ export default function Login () {
     password: ""
   })
   const [error, setError] = useState("")
-  //TODO: ISLOADING SPINNER STATE.
   const history = useHistory();
 
   const handleChange = (e) => {
@@ -45,7 +44,6 @@ export default function Login () {
           onChange={handleChange}
         />
         <input
-        //need to find the magical list of all the diff input types....
           type="password"
           name="password"
           value={credentials.password}
