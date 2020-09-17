@@ -1,21 +1,34 @@
-import React, { Component } from 'react';
-import Friends from './components/Friends.js';
-import CreateFriendForm from './components/Login.js';
-import UpdateFriendForm from './components/PrivateRoute.js';
+import React from 'react';
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+
+import Login from "./components/Login";
+import FriendsList from "./components/Friends";
+import PrivateRoute from "./components/PrivateRoute";
+
 
 import './App.css';
 
-class App extends Component {
-  render() {
-    return (
+function App() {
+  return (
+    <Router >
       <div className="App">
-        <h1> Friends App </h1>
-        <Friends />
-        <CreateFriendForm />
-        <UpdateFriendForm />
+        <h1>Auth Friends</h1>
+        <ul>
+          <li>
+            <Link to="/login">Login</Link>
+          </li>
+          <li>
+            <Link to="/friends">Friends</Link>
+          </li>
+        </ul>
+        <Switch>
+          <PrivateRoute exact path="/friends" component={FriendsList} />
+          <Route path="/login" component={Login} />
+          <Route component={Login} />
+        </Switch>
       </div>
-    );
-  }
+    </Router>
+  );
 }
 
 export default App;

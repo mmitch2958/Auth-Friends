@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { axiosWithAuth } from "../axiosWA";
 import { useHistory } from "react-router-dom"
 
 export default function Login () {
@@ -35,7 +35,7 @@ export default function Login () {
   }
 
   return (
-    <div>Login component says hi
+    <div>Login 
       <form onSubmit={login}>
         <input
           type="text"

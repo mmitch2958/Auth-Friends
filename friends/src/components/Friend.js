@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { axiosWithAuth } from "../axiosWA";
 
 export default function Friend ({ setFriends }) {
   const [friend, setFriend] = useState({
